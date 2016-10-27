@@ -22,3 +22,32 @@ select,
 textarea {
     max-width: 280px;
 }
+.jumbotron{
+    text-align:center;
+    font-family:'Comic Sans MS';
+    background:none;
+    color:crimson;
+    
+}
+.title{
+    font-family:'Comic Sans MS';
+    font-weight:bold;
+   
+}
+.jumbotron h1{
+    font-size:100px;
+}
+.homePage {
+    background-image: url('pexels-photo-25349.jpg');
+    background-size:cover;
+}
+h2 a{
+    color:crimson;
+    font-size:50px;
+    font-weight:bold;
+    font-family:'Comic Sans MS';
+}
+h2 a:hover{
+    color:white;
+    text-decoration:none;
+}
