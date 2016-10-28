@@ -10,7 +10,8 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    if (ViewBag.Id.Items.Count > 0)
+    {
     <div class="form-horizontal">
         <h4>Chat</h4>
         <hr />
@@ -37,7 +38,8 @@
             </div>
         </div>
     </div>
-}
+        }
+    }
 
 <div>
     @Html.ActionLink("Back to List", "Index")

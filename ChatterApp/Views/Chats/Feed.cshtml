@@ -1,0 +1,39 @@
+﻿@model ChatterApp.Models.Chat
+
+@{
+    ViewBag.Title = "Feed";
+}
+
+<h2>Feed</h2>
+@if (@ViewBag.authentication == "yes")
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.chats)
+    {
+        <tr>
+            <td>
+                @item.ApplicationUser.Email
+            </td>
+            <td>
+                @item.Content
+            </td>
+            
+        </tr>
+    }
+
+</table>
+}
+@*@else 
+{
+    <h3>You must be logged in to view your feed.</h3>
+}*@

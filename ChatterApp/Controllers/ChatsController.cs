@@ -16,6 +16,66 @@ namespace ChatterApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult Follow(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (Request.IsAuthenticated)
+            {
+
+                Chat chat = db.Chats.Find(id);
+                if (chat == null)
+                {
+                    return HttpNotFound();
+                }
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+                ApplicationUser authorUser = chat.ApplicationUser;
+                if (currentUser.Following.Contains(authorUser))
+                {
+                    ViewBag.content = "You are already following that user";                
+                }
+                else
+                {
+                    currentUser.Following.Add(authorUser);
+                    ViewBag.content = "You have now followed this user";
+                    db.SaveChanges();
+                }
+            }
+            return View();
+        }
+
+        public ActionResult Browse()
+        {
+            List<Chat> chats = db.Chats.OrderByDescending(c => c.ChatID).ToList();
+            ViewBag.chats = chats;
+            return View();
+        }
+
+        public ActionResult Feed()
+        {
+            if (Request.IsAuthenticated)
+            {
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+                List<string> following = new List<string>();
+                foreach (ApplicationUser followed in currentUser.Following)
+                {
+                    following.Add(followed.Id);
+                }
+                IEnumerable<Chat> chatEnumerable = db.Chats.Where(c => following.Contains(c.Id)).Select(c => c).OrderByDescending(c => c.ChatID).AsEnumerable();
+                List<Chat> chats = chatEnumerable.ToList();
+                ViewBag.authentication = "yes";
+                ViewBag.chats = chats;
+                return View();
+            }
+            ViewBag.authentication = "no";
+            return View();
+        }
+
         // GET: Chats
         public ActionResult Index()
         {
@@ -24,15 +84,15 @@ namespace ChatterApp.Controllers
                 UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                 ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
 
-                List<Chat> chats = db.Chats.Where(c => c.ApplicationUser.Id.Equals(currentUser.Id)).ToList();
+                List<Chat> chats = db.Chats.Where(c => c.ApplicationUser.Id.Equals(currentUser.Id)).OrderByDescending(c=>c.ChatID).ToList();
                 //var chats = db.Chats.Include(c => c.ApplicationUser);
-                ApplicationUser erica = UserManager.FindById("4049e150-4441-47e1-be11-035b8ae3d1ce");
-                ApplicationUser valerie = UserManager.FindById("6d14c31b-b392-4632-b515-f95184596e11");
+                //ApplicationUser erica = UserManager.FindById("4049e150-4441-47e1-be11-035b8ae3d1ce");
+                //ApplicationUser valerie = UserManager.FindById("6d14c31b-b392-4632-b515-f95184596e11");
 
-                if (erica.Following == null)
-                {
-                    erica.Following = new ApplicationUser[] { valerie };
-                }
+                //if (erica.Following == null)
+                //{
+                //    erica.Following = new ApplicationUser[] { valerie };
+                //}
                 db.SaveChanges();
                 return View(chats);
             }
@@ -52,13 +112,29 @@ namespace ChatterApp.Controllers
             {
                 return HttpNotFound();
             }
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.chatID = id;
+
             return View(chat);
         }
 
         // GET: Chats/Create
         public ActionResult Create()
         {
-            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "Email");
+            if (Request.IsAuthenticated)
+            {
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+                List<ApplicationUser> userList = new List<ApplicationUser>();
+                userList.Add(currentUser);
+                ViewBag.Id = new SelectList(userList, "Id", "Email");
+            }
+            else
+            {
+                List<ApplicationUser> userList = new List<ApplicationUser>();
+                ViewBag.Id = new SelectList(userList, "Id", "Email");
+            }
             return View();
         }
 

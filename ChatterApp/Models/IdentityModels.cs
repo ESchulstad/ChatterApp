@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Script.Serialization;
 
 namespace ChatterApp.Models
 {
@@ -20,6 +21,7 @@ namespace ChatterApp.Models
         }
         //[Key]
         //public int UserID { get; set; }
+        [ScriptIgnore]
         public virtual ICollection<ApplicationUser> Followers { get; set; }
         public virtual ICollection<ApplicationUser> Following { get; set; }
         //public override string UserName { get; set; }
