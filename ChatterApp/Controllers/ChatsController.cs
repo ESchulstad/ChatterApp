@@ -69,6 +69,7 @@ namespace ChatterApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ChatID,Id,Content")] Chat chat)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Chats.Add(chat);
