@@ -245,6 +245,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\beaver-silhouette.jpg" />
+    <Content Include="Content\images\city.jpg" />
     <Content Include="Content\pexels-photo-25349.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

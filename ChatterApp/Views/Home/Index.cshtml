@@ -5,21 +5,20 @@
     <div class="jumbotron">
         <h1 class="title">CHATTER</h1>
         <p class="lead">POST CHATS, FOLLOW OTHERS, SEE WHAT'S TRENDING</p>
-        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p>@Html.ActionLink("Learn more >>", "About", "Home", new { @class="btn btn-primary btn-lg"})</p>
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <h2>@Html.ActionLink("View Your Chats","Index","Chats")</h2>
+        <div class="col-md-6">
+            <h2 class="trending">@Html.ActionLink("What's Trending NOW", "Browse", "Chats")</h2>
+            
          
         </div>
-        <div class="col-md-4">
-            <h2>@Html.ActionLink("View Browser","Browse","Chats")</h2>
+        <div class="col-md-6">
+            <h2 class="yourPage">@Html.ActionLink("Post A Chat", "Index", "Chats")</h2>
+            <h2 class="yourPage">@Html.ActionLink("Your Feed", "Feed", "Chats")</h2>
 
         </div>
-        <div class="col-md-4">
-            <h2>@Html.ActionLink("View Your Feed","Feed","Chats")</h2>
-            
-        </div>
+      
     </div>
 </body>

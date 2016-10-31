@@ -4,34 +4,27 @@
     ViewBag.Title = "Details";
 }
 
-<h2 id="details">Details</h2>
+<h2 class="heading">Details</h2>
 
 <div>
-    <h4>Chat</h4>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </dt>
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2 chat">
 
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.Email)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+            <span class="email">@Html.DisplayFor(model => model.ApplicationUser.Email)</span> <br />
 
-        <dd>
+
+
             @Html.DisplayFor(model => model.Content)
-        </dd>
 
-    </dl>
+
+
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ChatID })
+                @Html.ActionLink("Back to Chats", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<div>
-    <button>@Html.ActionLink("Follow", "Follow", new { id = Model.ChatID })</button>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ChatID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

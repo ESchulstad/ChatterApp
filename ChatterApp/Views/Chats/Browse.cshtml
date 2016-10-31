@@ -4,36 +4,31 @@
     ViewBag.Title = "Browse";
 }
 
-<h2>Browse</h2>
+<h2 class="heading">Trending Now</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th></th>
-    </tr>
-    
+
+            @*@Html.DisplayNameFor(model => model.ApplicationUser.Email)
+       
+            @Html.DisplayNameFor(model => model.Content)*@
+
+<div class="row">
     @foreach (var item in ViewBag.chats)
     {
-        <tr>
-            <td>
-                @item.ApplicationUser.Email
-            </td>
-            <td>
-                @item.Content
-            </td>
-            @if(Request.IsAuthenticated)
-            { 
-            <td>
-                @Html.ActionLink("Follow", "Follow", new { id = item.ChatID }) 
-            </td>
+        <div class="col-xs-12 col-md-8 col-md-offset-2 chat">
+            <span class="email"> @item.ApplicationUser.Email </span><br/>
+            
+            @item.Content<br/>
+
+
+            @if (Request.IsAuthenticated)
+            {
+
+                @Html.ActionLink("Follow", "Follow", new { id = item.ChatID })
+
             }
-        </tr>
+        </div>
     }
 
-</table>
+
+</div>
 

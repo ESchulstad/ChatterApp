@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('images/city.jpg');
+    background-size:cover;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,6 +23,15 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+a{
+    color:red;
+    font-weight:bold;
+    font-size:20px;
+    font-family:'Comic Sans MS';
+}
+a:hover{
+    color:white;
 }
 .jumbotron{
     text-align:center;
@@ -43,7 +54,7 @@ textarea {
 }
 h2 a{
     color:#ff0000;
-    font-size:40px;
+    font-size:50px;
     font-weight:bold;
     font-family:'Comic Sans MS';
     text-align:center;
@@ -57,4 +68,88 @@ p.lead{
 }
 .footer{
     color:#ff0000;
+}
+.beaver{
+    width:45px;
+    float:left;
+    padding:5px;
+    margin-top:3px;
+}
+.navbar-inverse .navbar-nav > li > a{
+    color:white;
+}
+.navbar-inverse .navbar-nav > li > a:hover{
+    color:red;
+}
+.navbar-inverse .navbar-brand{
+    color:white;
+}
+.navbar-inverse .navbar-brand:hover{
+    color:red;
+}
+.trending{
+    text-align:center;
+}
+.yourPage{
+    text-align:center;
+}
+/*Page Headings*/
+.heading{
+    text-align:center;
+    color:red;
+    font-size:50px;
+    padding:15px;
+    font-family:'Comic Sans MS';
+    margin-bottom:35px;
+    margin-top:35px;
+}
+/*Chat boxes*/
+.chat{
+    border:solid blue 3px;
+    border-radius:30px;
+    padding:10px;
+    padding-left:20px;
+    margin-bottom:10px;
+    background-color:rgba(204, 198, 179, .85);
+    font-family:'Comic Sans MS';
+    font-size:20px;
+    color:white;
+}
+.email{
+    color: blue;
+}
+div.col-xs-12.col-md-8.col-md-offset-2.chat a{
+    float:right;
+    margin-right:40px;
+    border:solid white;
+    border-radius:10px;
+    background-color:white;
+    color:cadetblue;
+}
+div.col-xs-12.col-md-8.col-md-offset-2.chat a:hover{
+    text-decoration:none;
+    background-color:gray;
+    border-color:gray;
+}
+.create{
+    text-align:center;
+    margin-bottom:20px;
+}
+p.create a{
+    font-size:22px;
+    font-weight:bold;
+    color:blue;
+    
+}
+label.control-label.col-md-2{
+    font-family:'Comic Sans MS';
+    color:red;
+    font-size:15px;
+}
+.subheading{
+    color:red;
+    font-size:35px;
+    text-align:center;
+    font-family:'Comic Sans MS';
+
 }

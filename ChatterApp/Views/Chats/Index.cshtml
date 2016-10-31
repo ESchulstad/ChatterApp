@@ -4,36 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="heading">Your Chats</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="create">
+    @Html.ActionLink("Write A New Chat", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChatID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChatID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChatID })
-        </td>
-    </tr>
-}
+            @*@Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        
+            @Html.DisplayNameFor(model => model.Content)*@
+     
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-12 col-md-8 col-md-offset-2 chat">
+            <span class="email">@Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span><br/>
 
-</table>
+            @Html.DisplayFor(modelItem => item.Content)<br/>
+
+            @Html.ActionLink("Edit", "Edit", new { id = item.ChatID })
+            @Html.ActionLink("Details", "Details", new { id = item.ChatID })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ChatID })
+        </div>
+    }
+</div>
+
+
+

@@ -36,12 +36,12 @@ namespace ChatterApp.Controllers
                 ApplicationUser authorUser = chat.ApplicationUser;
                 if (currentUser.Following.Contains(authorUser))
                 {
-                    ViewBag.content = "You are already following that user";                
+                    ViewBag.content = "You are already following this user";                
                 }
                 else
                 {
                     currentUser.Following.Add(authorUser);
-                    ViewBag.content = "You have now followed this user";
+                    ViewBag.content = "You are now following this user";
                     db.SaveChanges();
                 }
             }

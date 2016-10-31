@@ -4,35 +4,27 @@
     ViewBag.Title = "Feed";
 }
 
-<h2>Feed</h2>
+<h2 class="heading">Your Feed</h2>
 @if (@ViewBag.authentication == "yes")
 {
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in ViewBag.chats)
-    {
-        <tr>
-            <td>
-                @item.ApplicationUser.Email
-            </td>
-            <td>
+            @*@Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        
+            @Html.DisplayNameFor(model => model.Content)*@
+
+    <div class="row">
+        @foreach (var item in ViewBag.chats)
+        {
+            <div class="col-xs-12 col-md-8 col-md-offset-2 chat">
+                <span class="email">@item.ApplicationUser.Email</span><br />
+
                 @item.Content
-            </td>
-            
-        </tr>
-    }
+            </div>
+        }
 
-</table>
+    </div>
 }
+
 @*@else 
 {
     <h3>You must be logged in to view your feed.</h3>
