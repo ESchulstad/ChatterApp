@@ -169,8 +169,29 @@ namespace ChatterApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "Email", chat.Id);
-            return View(chat);
+            if (Request.IsAuthenticated)
+            {
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+                if (currentUser == chat.ApplicationUser)
+                {
+                    List<ApplicationUser> userList = new List<ApplicationUser>();
+                    userList.Add(currentUser);
+                    ViewBag.Id = new SelectList(userList, "Id", "Email");
+                    //ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "Email", chat.Id);
+                    return View(chat);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+
+            }
+          
         }
 
         // POST: Chats/Edit/5
@@ -183,11 +204,19 @@ namespace ChatterApp.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(chat).State = EntityState.Modified;
-                db.SaveChanges();
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+                if (chat.ApplicationUser == currentUser)
+                {
+                    ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "Email", chat.Id);
+                    db.SaveChanges();
+                    return View(chat);
+                   
+                    
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.ApplicationUsers, "Id", "Email", chat.Id);
-            return View(chat);
+            return RedirectToAction("Index");
         }
 
         // GET: Chats/Delete/5
@@ -202,7 +231,20 @@ namespace ChatterApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(chat);
+            if (Request.IsAuthenticated)
+            {
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+                if (currentUser == chat.ApplicationUser)
+                {
+                    return View(chat);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: Chats/Delete/5
@@ -211,8 +253,14 @@ namespace ChatterApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Chat chat = db.Chats.Find(id);
-            db.Chats.Remove(chat);
-            db.SaveChanges();
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+            if (chat.ApplicationUser == currentUser)
+            {
+                db.Chats.Remove(chat);
+                db.SaveChanges();
+            }
+            
             return RedirectToAction("Index");
         }
 

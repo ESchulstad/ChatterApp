@@ -153,3 +153,17 @@ label.control-label.col-md-2{
     font-family:'Comic Sans MS';
 
 }
+div.group{
+    color:red;
+    font-family:'Comic Sans MS';
+    font-weight:bold;
+}
+section#socialLoginForm h4{
+    color:red;
+    font-family:'Comic Sans MS';
+}
+div.checkbox label{
+    font-family:'Comic Sans MS';
+    font-weight:bold;
+    color:black;
+}
